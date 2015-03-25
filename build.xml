@@ -1,0 +1,15 @@
+<project name="Orrery" basedir=".">
+
+	<target name="clean">
+		<fileset dir="bin" />
+	</target>
+
+	<target name="compile">
+		<javac debug="true" includeantruntime="false" srcdir="src" destdir="bin" />
+	</target>
+
+	<target name="run" depends="compile">
+		<java classpath="bin" fork="true" classname="Orrery" />
+	</target>
+
+</project>
