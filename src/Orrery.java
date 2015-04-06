@@ -7,7 +7,8 @@ import javafx.scene.Group;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
 import javafx.scene.paint.Color;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 // ----- Class ----- //
 
@@ -16,7 +17,7 @@ public class Orrery extends Application {
 	private final double centreX = 200;
 	private final double centreY = 200;
 	private Group root;
-	private ArrayList<Planet> planets;
+	private Map<String, Planet> planets;
 
 	private void buildSun () {
 
@@ -27,16 +28,16 @@ public class Orrery extends Application {
 
 	private void buildPlanets () {
 
-		Planet earth = new Planet("Earth", centreX, centreY, 100, 20, 5);
+		Planet earth = new Planet("Earth", centreX, centreY, 100, 10, 5);
 		root.getChildren().add(earth.getOrbitalPath());
 		root.getChildren().add(earth.getPlanet());
-		planets.add(earth);
+		planets.put("earth", earth);
 
 	}
 
 	private void startMotion () {
-		for (Planet planet : planets) {
-			planet.getMotion().play();
+		for (Map.Entry<String, Planet> planet : planets.entrySet()) {
+			planet.getValue().getMotion().play();
 		}
 	}
 
@@ -44,7 +45,7 @@ public class Orrery extends Application {
 	public void start (Stage primaryStage) {
 
 		root = new Group();
-		planets = new ArrayList<Planet>();
+		planets = new HashMap<>();
 
 		buildSun();
 		buildPlanets();
