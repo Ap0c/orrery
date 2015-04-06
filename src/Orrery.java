@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import java.util.Map;
 import java.util.HashMap;
 
+
 // ----- Class ----- //
 
 public class Orrery extends Application {
@@ -26,19 +27,34 @@ public class Orrery extends Application {
 
 	}
 
+	private void addPlanets() {
+
+		Planet earth = new Planet(
+			"Earth", centreX, centreY, 100, 10, 5, new int[]{40, 40, 255});
+		planets.put("earth", earth);
+		Planet mars = new Planet(
+			"Mars", centreX, centreY, 150, 8, 7, new int[]{250, 100, 40});
+		planets.put("mars", mars);
+
+	}
+
 	private void buildPlanets () {
 
-		Planet earth = new Planet("Earth", centreX, centreY, 100, 10, 5);
-		root.getChildren().add(earth.getOrbitalPath());
-		root.getChildren().add(earth.getPlanet());
-		planets.put("earth", earth);
+		addPlanets();
+
+		for (Map.Entry<String, Planet> planet : planets.entrySet()) {
+			root.getChildren().add(planet.getValue().getOrbitalPath());
+			root.getChildren().add(planet.getValue().getPlanet());
+		}
 
 	}
 
 	private void startMotion () {
+
 		for (Map.Entry<String, Planet> planet : planets.entrySet()) {
 			planet.getValue().getMotion().play();
 		}
+
 	}
 
 	@Override
