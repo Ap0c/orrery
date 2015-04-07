@@ -71,7 +71,8 @@ class Planet {
 		double radius, int period, int[] color) {
 
 		this.name = name;
-		this.planet = new Circle(radius, Color.rgb(color[0], color[1], color[2]));
+		this.planet = new Circle(
+			radius, Color.rgb(color[0], color[1], color[2]));
 		this.orbitalPath = new Path();
 		this.motion = new PathTransition();
 		setOrbitalPath(centreX, centreY, orbitalRadius);

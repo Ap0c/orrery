@@ -4,8 +4,9 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Group;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import java.util.Map;
 import java.util.HashMap;
@@ -15,10 +16,20 @@ import java.util.HashMap;
 
 public class Orrery extends Application {
 
-	private final double centreX = 350;
-	private final double centreY = 350;
+	private final double spaceWidth = 700;
+	private final double spaceHeight = 700;
+	private final double centreX = spaceWidth / 2;
+	private final double centreY = spaceHeight / 2;
+	private Rectangle space;
 	private Group planetGroup;
 	private Map<String, Planet> planets;
+
+	private void buildSpace() {
+
+		space = new Rectangle(700, 700, Color.BLACK);
+		planetGroup.getChildren().add(space);
+
+	}
 
 	private void buildSun () {
 
@@ -78,15 +89,29 @@ public class Orrery extends Application {
 	@Override
 	public void start (Stage primaryStage) {
 
+		BorderPane border = new BorderPane();
+
 		planetGroup = new Group();
 		planets = new HashMap<>();
+		Info info = new Info();
+		border.setCenter(planetGroup);
+		border.setRight(info.getInfo());
 
+		buildSpace();
 		buildSun();
 		buildPlanets();
 
+		// Circle oldEarth = planets.get("earth").getPlanet();
+		// Circle newEarth = new Circle(oldEarth.getRadius(), oldEarth.getFill());
+		// controls.getChildren().add(newEarth);
+
 		// Adds title and scene to stage.
 		primaryStage.setTitle("Solar System");
-		primaryStage.setScene(new Scene(planetGroup, 700, 700, Color.BLACK));
+		primaryStage.setScene(new Scene(border,
+			spaceWidth + info.infoWidth(),
+			spaceHeight,
+			Color.BLACK)
+		);
 		startMotion();
 		primaryStage.show();
 
