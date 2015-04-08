@@ -67,6 +67,10 @@ class Planet {
 		return motion;
 	}
 
+	public String getName () {
+		return name;
+	}
+
 	Planet (String name, double centreX, double centreY, double orbitalRadius,
 		double radius, int period, int[] color) {
 

@@ -16,6 +16,7 @@ class Space {
 	private final double spaceHeight = 700;
 	private final double centreX = spaceWidth / 2;
 	private final double centreY = spaceHeight / 2;
+	private final double sunSize = 35.0;
 	private Rectangle background;
 	private Group spaceGroup;
 	private Map<String, Planet> planets;
@@ -29,7 +30,7 @@ class Space {
 
 	private void buildSun () {
 
-		Circle sun = new Circle(centreX, centreY, 35.0, Color.ORANGE);
+		Circle sun = new Circle(centreX, centreY, sunSize, Color.ORANGE);
 		spaceGroup.getChildren().add(sun);
 
 	}
@@ -84,6 +85,10 @@ class Space {
 
 	public Group getSpace () {
 		return spaceGroup;
+	}
+
+	public Map<String, Planet> getPlanets() {
+		return planets;
 	}
 
 	public double getWidth () {
