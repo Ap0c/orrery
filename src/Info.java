@@ -1,6 +1,6 @@
 // ----- Imports ----- //
 
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 import javafx.scene.paint.Color;
@@ -14,24 +14,27 @@ import java.util.HashMap;
 class Info {
 
 	private final double infoWidth = 300;
-	private VBox infoBox;
+	private GridPane infoBox;
 
 	private void buildInfo () {
 
 		infoBox.setPrefWidth(infoWidth);
 		infoBox.setStyle("-fx-background-color: #000000");
-		infoBox.setSpacing(19);
+		infoBox.setHgap(5);
+		infoBox.setVgap(20);
 		infoBox.setPadding(new Insets(10, 50, 50, 50));
 
 		Label title = new Label("The Planets");
 		title.setTextFill(Color.WHITE);
-		infoBox.getChildren().add(title);
+		infoBox.add(title, 1, 0);
 
 	}
 
 	private void addPlanets (Space space) {
 
 		Map<String, Planet> planets = space.getPlanets();
+
+		int row = 1;
 
 		for (Map.Entry<String, Planet> planet : planets.entrySet()) {
 
@@ -42,15 +45,16 @@ class Info {
 			Label planetName = new Label(planet.getValue().getName());
 			planetName.setTextFill(Color.WHITE);
 
-			infoBox.getChildren().add(infoPlanet);
-			infoBox.getChildren().add(planetName);
+			infoBox.add(infoPlanet, 1, row);
+			infoBox.add(planetName, 2, row);
 
+			row++;
 
 		}
 
 	}
 
-	public VBox getInfo () {
+	public GridPane getInfo () {
 		return infoBox;
 	}
 
@@ -60,7 +64,7 @@ class Info {
 
 	public Info (Space space) {
 
-		this.infoBox = new VBox();
+		this.infoBox = new GridPane();
 		buildInfo();
 		addPlanets(space);
 

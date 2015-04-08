@@ -20,6 +20,8 @@ class Space {
 	private Rectangle background;
 	private Group spaceGroup;
 	private Map<String, Planet> planets;
+	public String[] orderedPlanets = {"mercury", "venus", "earth", "mars",
+		"jupiter", "saturn", "uranus", "neptune"};
 
 	private void buildBackground() {
 
