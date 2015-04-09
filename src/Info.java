@@ -24,6 +24,8 @@ class Info {
 	private GridPane infoBox;
 	private GridPane planetList;
 	private GridPane planetData;
+	private String[] titleLabels = {"Mass", "Mean Radius", "Semi-Major Axis",
+		"Orbital Period", "Rotation Period", "Number of Moons"};
 	private Map<String, Label> dataLabels;
 
 	private void buildList () {
@@ -41,42 +43,21 @@ class Info {
 
 	}
 
-	private void titleLabels () {
-
-		String[] titles = {"Mass", "Diameter", "Distance from Sun",
-		"Orbital Period", "Day Length", "Number of Moons"};
+	private void dataLabels () {
 
 		int row = 0;
 
-		for (String title : titles) {
+		for (String title : titleLabels) {
 
 			Label titleLabel = new Label(title);
 			titleLabel.setTextFill(Color.WHITE);
 			planetData.add(titleLabel, 0, row);
 
-			row++;
+			Label dataLabel = new Label("-");
+			dataLabel.setTextFill(Color.WHITE);
+			planetData.add(dataLabel, 1, row);
+			dataLabels.put(title, dataLabel);
 
-		}
-
-	}
-
-	private void dataLabels () {
-
-		titleLabels();
-
-		dataLabels.put("massData", new Label("blah"));
-		dataLabels.put("diameterData", new Label(""));
-		dataLabels.put("distanceData", new Label(""));
-		dataLabels.put("orbitalData", new Label(""));
-		dataLabels.put("dayData", new Label(""));
-		dataLabels.put("moonData", new Label(""));
-
-		int row = 0;
-
-		for (Map.Entry<String, Label> datum : dataLabels.entrySet()) {
-
-			planetData.add(datum.getValue(), 1, row);
-			datum.getValue().setTextFill(Color.WHITE);
 			row++;
 
 		}
@@ -89,7 +70,7 @@ class Info {
 		titleCol.setHalignment(HPos.RIGHT);
 
 		planetData.getColumnConstraints().add(titleCol);
-		planetData.setPadding(new Insets(20, 50, 10, 50));
+		planetData.setPadding(new Insets(20, 50, 10, 10));
 		planetData.setHgap(30);
 		planetData.setVgap(20);
 
@@ -108,9 +89,21 @@ class Info {
 
 	}
 
-	private void setClick (Space space, Circle planet, String name) {
+	private void updateData (Planet planet) {
 
-		planet.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		for (Map.Entry<String, String> item :
+			planet.getProperties().entrySet()) {
+
+			dataLabels.get(item.getKey()).setText(item.getValue());
+
+		}
+
+	}
+
+	private EventHandler<MouseEvent> clickHandler (
+		Space space, Circle planet, String name) {
+
+		return new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle (MouseEvent event) {
@@ -120,11 +113,19 @@ class Info {
 						Color.WHITE);
 				}
 
-				space.getPlanet(name).getOrbitalPath().setStroke(Color.RED);
+				Planet planet = space.getPlanet(name);
+				planet.getOrbitalPath().setStroke(Color.RED);
+				updateData(planet);
 
 			}
+		};
+	
+	}
 
-		});
+	private void setClick (Space space, Circle planet, String name, Label lbl) {
+
+		planet.setOnMouseClicked(clickHandler(space, planet, name));
+		lbl.setOnMouseClicked(clickHandler(space, planet, name));
 
 	}
 
@@ -145,7 +146,7 @@ class Info {
 			planetList.add(planetName, 2, row);
 
 			GridPane.setHalignment(infoPlanet, HPos.CENTER);
-			setClick(space, infoPlanet, name);
+			setClick(space, infoPlanet, name, planetName);
 
 			row++;
 

@@ -62,10 +62,10 @@ class Planet {
 		properties = new HashMap<>();
 
 		properties.put("Mass", planetData[7]);
-		properties.put("Diameter", planetData[8]);
-		properties.put("Distance from Sun", planetData[9]);
+		properties.put("Mean Radius", planetData[8]);
+		properties.put("Semi-Major Axis", planetData[9]);
 		properties.put("Orbital Period", planetData[10]);
-		properties.put("Day Length", planetData[12]);
+		properties.put("Rotation Period", planetData[11]);
 		properties.put("Number of Moons", planetData[12]);
 
 	}
@@ -128,6 +128,13 @@ class Planet {
 		graphicProperties(planetData);
 		motionProperties(centreX, centreY, planetData);
 		physicalProperties(planetData);
+
+		for (Map.Entry<String, String> item :
+			getProperties().entrySet()) {
+
+			System.out.println(item.getKey() + " : " + item.getValue());
+
+		}
 
 	}
 
