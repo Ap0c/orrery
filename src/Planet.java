@@ -1,3 +1,5 @@
+// ----- Imports ----- //
+
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.MoveTo;
@@ -8,6 +10,11 @@ import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.animation.Interpolator;
 import javafx.util.Duration;
+import java.util.Map;
+import java.util.HashMap;
+
+
+// ----- Class ----- //
 
 class Planet {
 
@@ -15,6 +22,7 @@ class Planet {
 	private Circle planet;
 	private Path orbitalPath;
 	private PathTransition motion;
+	private Map<String, String> properties;
 
 	private void setRadius (double radius) {
 		planet.setRadius(radius);
@@ -24,26 +32,64 @@ class Planet {
 		planet.setFill(colour);
 	}
 
-	public void setOrbitalPath (double centreX, double centreY, double radius) {
+	private void graphicProperties (String[] planetData) {
 
-		double startY = centreY - radius;
-		double midY = centreY + radius;
+		double radius = Double.parseDouble(planetData[2]);
+		int red = Integer.parseInt(planetData[4]);
+		int green = Integer.parseInt(planetData[5]);
+		int blue = Integer.parseInt(planetData[6]);
+
+		planet = new Circle(radius, Color.rgb(red, green, blue));
+
+	}
+
+	private void motionProperties (
+		double centreX, double centreY, String[] planetData) {
+
+		orbitalPath = new Path();
+		motion = new PathTransition();
+
+		double orbitalRadius = Double.parseDouble(planetData[1]);
+		int period = Integer.parseInt(planetData[3]);
+
+		setOrbitalPath(centreX, centreY, orbitalRadius);
+		setMotion(period);
+
+	}
+
+	private void physicalProperties (String[] planetData) {
+
+		properties = new HashMap<>();
+
+		properties.put("Mass", planetData[7]);
+		properties.put("Diameter", planetData[8]);
+		properties.put("Distance from Sun", planetData[9]);
+		properties.put("Orbital Period", planetData[10]);
+		properties.put("Day Length", planetData[12]);
+		properties.put("Number of Moons", planetData[12]);
+
+	}
+
+	private void setOrbitalPath (double centreX, double centreY, double rad) {
+
+		double startY = centreY - rad;
+		double midY = centreY + rad;
 
 		orbitalPath.setStroke(Color.WHITE);
 		orbitalPath.setSmooth(true);
 
 		orbitalPath.getElements().add(new MoveTo(centreX, startY));
 		orbitalPath.getElements().add(new ArcTo(
-			radius, radius, 0, centreX, midY, false, false
+			rad, rad, 0, centreX, midY, false, false
 		));
 		orbitalPath.getElements().add(new ArcTo(
-			radius, radius, 0, centreX, startY, false, false
+			rad, rad, 0, centreX, startY, false, false
 		));
 		orbitalPath.getElements().add(new ClosePath());
 
 	}
 
-	public void setMotion (int orbitalPeriod) {
+	private void setMotion (int orbitalPeriod) {
 
 		motion.setDuration(Duration.millis(orbitalPeriod * 1000));
 		motion.setPath(orbitalPath);
@@ -71,16 +117,17 @@ class Planet {
 		return name;
 	}
 
-	Planet (String name, double centreX, double centreY, double orbitalRadius,
-		double radius, int period, int[] color) {
+	public Map<String, String> getProperties () {
+		return properties;
+	}
 
-		this.name = name;
-		this.planet = new Circle(
-			radius, Color.rgb(color[0], color[1], color[2]));
-		this.orbitalPath = new Path();
-		this.motion = new PathTransition();
-		setOrbitalPath(centreX, centreY, orbitalRadius);
-		setMotion(period);
+	Planet (double centreX, double centreY, String[] planetData) {
+
+		this.name = planetData[0];
+		
+		graphicProperties(planetData);
+		motionProperties(centreX, centreY, planetData);
+		physicalProperties(planetData);
 
 	}
 
