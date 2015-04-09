@@ -43,16 +43,16 @@ class Space {
 			"Mercury", centreX, centreY, 50, 5, 1, new int[]{180, 180, 180});
 		planets.put("mercury", mercury);
 		Planet venus = new Planet(
-			"Venus", centreX, centreY, 90, 10, 3, new int[]{240, 200, 180});
+			"Venus", centreX, centreY, 90, 10, 3, new int[]{250, 200, 180});
 		planets.put("venus", venus);
 		Planet earth = new Planet(
-			"Earth", centreX, centreY, 130, 10, 5, new int[]{40, 100, 255});
+			"Earth", centreX, centreY, 130, 10, 5, new int[]{40, 210, 255});
 		planets.put("earth", earth);
 		Planet mars = new Planet(
-			"Mars", centreX, centreY, 170, 8, 10, new int[]{250, 100, 40});
+			"Mars", centreX, centreY, 170, 8, 10, new int[]{255, 90, 30});
 		planets.put("mars", mars);
 		Planet jupiter = new Planet(
-			"Jupiter", centreX, centreY, 210, 20, 60, new int[]{230, 120, 40});
+			"Jupiter", centreX, centreY, 210, 20, 60, new int[]{240, 120, 40});
 		planets.put("jupiter", jupiter);
 		Planet saturn = new Planet(
 			"Saturn", centreX, centreY, 250, 18, 150, new int[]{220, 160, 40});
@@ -89,8 +89,12 @@ class Space {
 		return spaceGroup;
 	}
 
-	public Map<String, Planet> getPlanets() {
-		return planets;
+	public Planet getPlanet (String name) {
+		return planets.get(name);
+	}
+
+	public String[] getPlanets () {
+		return orderedPlanets;
 	}
 
 	public double getWidth () {
