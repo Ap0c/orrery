@@ -16,7 +16,12 @@ import java.util.HashMap;
 
 // ----- Class ----- //
 
+/**
+ * An orbiting planet object.
+ */
 class Planet {
+
+	// ----- Instance Variables ----- //
 
 	private String name;
 	private Circle planet;
@@ -24,14 +29,13 @@ class Planet {
 	private PathTransition motion;
 	private Map<String, String> properties;
 
-	private void setRadius (double radius) {
-		planet.setRadius(radius);
-	}
+	// ----- Instance Methods ----- //
 
-	private void setColour (Color colour) {
-		planet.setFill(colour);
-	}
-
+	/**
+	 * Creates the circle object that represents the planet.
+	 * 
+	 * @param planetData an array of properties describing the planet.
+	 */
 	private void graphicProperties (String[] planetData) {
 
 		double radius = Double.parseDouble(planetData[2]);
@@ -43,6 +47,14 @@ class Planet {
 
 	}
 
+	/**
+	 * Creates the movement data for the planet, i.e. defines its orbit on
+	 * screen.
+	 * 
+	 * @param centreX the x-coordinate of the centre of the orbit.
+	 * @param centreY the y-coordinate of the centre of the orbit.
+	 * @param planetData an array of properties describing the planet.
+	 */
 	private void motionProperties (
 		double centreX, double centreY, String[] planetData) {
 
@@ -57,6 +69,12 @@ class Planet {
 
 	}
 
+	/**
+	 * Stores additional information about the planet not related to its
+	 * graphical appearance.
+	 * 
+	 * @param planetData an array of properties describing the planet.
+	 */
 	private void physicalProperties (String[] planetData) {
 
 		properties = new HashMap<>();
@@ -70,6 +88,13 @@ class Planet {
 
 	}
 
+	/**
+	 * Defines the path on screen along which the planet orbits.
+	 * 
+	 * @param centreX the x-coordinate of the centre of the orbit.
+	 * @param centreY the y-coordinate of the centre of the orbit.
+	 * @param rad the radius of the orbit.
+	 */
 	private void setOrbitalPath (double centreX, double centreY, double rad) {
 
 		double startY = centreY - rad;
@@ -89,6 +114,12 @@ class Planet {
 
 	}
 
+	/**
+	 * Defines how the planet moves along its orbital path, i.e. period, 
+	 * looping the animation, etc.
+	 * 
+	 * @param orbitalPeriod the period of the orbit (seconds).
+	 */
 	private void setMotion (int orbitalPeriod) {
 
 		motion.setDuration(Duration.millis(orbitalPeriod * 1000));
@@ -101,25 +132,53 @@ class Planet {
 
 	}
 
+	/**
+	 * Retrieves the circle representing the planet on screen.
+	 * 
+	 * @return A javafx Circle object.
+	 */
 	public Circle getPlanet () {
 		return planet;
 	}
 
+	/**
+	 * Retrieves the path describing the orbit.
+	 * 
+	 * @return A javafx Path object.
+	 */
 	public Path getOrbitalPath () {
 		return orbitalPath;
 	}
 
+	/**
+	 * Retrieves the orbit animation.
+	 * 
+	 * @return A javafx PathTransition object.
+	 */
 	public PathTransition getMotion () {
 		return motion;
 	}
 
+	/**
+	 * Retrieves the name of the planet.
+	 * 
+	 * @return Planet name in string format.
+	 */
 	public String getName () {
 		return name;
 	}
 
+	/**
+	 * Retrieves the list of real physical properties of the planet, i.e. Mass,
+	 * Number of Moons, etc.
+	 * 
+	 * @return A hashmap with the names of the properties as keys.
+	 */
 	public Map<String, String> getProperties () {
 		return properties;
 	}
+
+	// ----- Constructor ----- //
 
 	Planet (double centreX, double centreY, String[] planetData) {
 

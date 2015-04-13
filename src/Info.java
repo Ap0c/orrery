@@ -18,7 +18,12 @@ import java.util.HashMap;
 
 // ----- Class ----- //
 
+/**
+ * A panel on the right of the screen that holds information about the planets.
+ */
 class Info {
+
+	// ----- Instance Variables ----- //
 
 	private final double infoWidth = 300;
 	private GridPane infoBox;
@@ -28,7 +33,43 @@ class Info {
 		"Orbital Period", "Rotation Period", "Number of Moons"};
 	private Map<String, Label> dataLabels;
 
-	private void buildList () {
+	// ----- Instance Methods ----- //
+
+	/**
+	 * Adds a set of coloured circles to the info panel to represent planets.
+	 * 
+	 * @param space a space object containing the planets.
+	 */
+	private void addPlanets (Space space) {
+
+		int row = 1;
+
+		for (String name : space.getPlanets()) {
+
+			Planet planet = space.getPlanet(name);
+			Circle infoPlanet = new Circle(
+				planet.getPlanet().getRadius(), planet.getPlanet().getFill());
+
+			Label planetName = new Label(planet.getName());
+			planetName.setTextFill(Color.WHITE);
+
+			planetList.add(infoPlanet, 1, row);
+			planetList.add(planetName, 2, row);
+
+			GridPane.setHalignment(infoPlanet, HPos.CENTER);
+			setClick(space, infoPlanet, name, planetName);
+			row++;
+
+		}
+
+	}
+
+	/**
+	 * Creates a list of planets and their names for display in the info panel.
+	 * 
+	 * @param space a space object containing the planets.
+	 */
+	private void buildList (Space space) {
 
 		planetList.setPrefWidth(infoWidth);
 		planetList.setHgap(30);
@@ -41,8 +82,13 @@ class Info {
 		planetList.add(title, 1, 0, 2, 1);
 		GridPane.setHalignment(title, HPos.CENTER);
 
+		addPlanets(space);
+
 	}
 
+	/**
+	 * Creates a set of labels to display information about a chosen planet.
+	 */
 	private void dataLabels () {
 
 		int row = 0;
@@ -64,6 +110,10 @@ class Info {
 
 	}
 
+	/**
+	 * Sets up a section of the info panel to display information about a chosen
+	 * planet.
+	 */
 	private void buildData () {
 
 		ColumnConstraints titleCol = new ColumnConstraints();
@@ -78,9 +128,15 @@ class Info {
 
 	}
 
-	private void buildInfo () {
+	/**
+	 * Creates the information panel, adding a section for a list of planets
+	 * and one for displaying information about a specific planet.
+	 *
+	 * @param space a space object containing the planets.
+	 */
+	private void buildInfo (Space space) {
 
-		buildList();
+		buildList(space);
 		infoBox.add(planetList, 0, 0);
 		buildData();
 		infoBox.add(planetData, 0, 1);
@@ -89,6 +145,12 @@ class Info {
 
 	}
 
+	/**
+	 * Updates the data section to display information about a specific planet
+	 * when it is selected.
+	 *
+	 * @param planet the planet object from which the data is to be retrieved.
+	 */
 	private void updateData (Planet planet) {
 
 		for (Map.Entry<String, String> item :
@@ -100,6 +162,18 @@ class Info {
 
 	}
 
+	/**
+	 * Creates a handler for the event that occurs when a planet in the list is
+	 * clicked on. The planets orbital path is coloured red, and information
+	 * about it is displayed in the data section.
+	 *
+	 * @param space the space object containing the planet information.
+	 * @param planet the circle representing the planet in the list, this is the
+	 * thing that will be clicked on.
+	 * @param name the name of the planet that has been clicked on.
+	 *
+	 * @return An event handler for a mouse click event.
+	 */
 	private EventHandler<MouseEvent> clickHandler (
 		Space space, Circle planet, String name) {
 
@@ -129,31 +203,6 @@ class Info {
 
 	}
 
-	private void addPlanets (Space space) {
-
-		int row = 1;
-
-		for (String name : space.getPlanets()) {
-
-			Planet planet = space.getPlanet(name);
-			Circle infoPlanet = new Circle(
-				planet.getPlanet().getRadius(), planet.getPlanet().getFill());
-
-			Label planetName = new Label(planet.getName());
-			planetName.setTextFill(Color.WHITE);
-
-			planetList.add(infoPlanet, 1, row);
-			planetList.add(planetName, 2, row);
-
-			GridPane.setHalignment(infoPlanet, HPos.CENTER);
-			setClick(space, infoPlanet, name, planetName);
-
-			row++;
-
-		}
-
-	}
-
 	public GridPane getInfo () {
 		return infoBox;
 	}
@@ -169,8 +218,7 @@ class Info {
 		this.planetData = new GridPane();
 		this.dataLabels = new HashMap<>();
 
-		buildInfo();
-		addPlanets(space);
+		buildInfo(space);
 
 	}
 
