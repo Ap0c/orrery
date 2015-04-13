@@ -196,6 +196,18 @@ class Info {
 	
 	}
 
+	/**
+	 * Assigns handlers for mouse clicks on the planets and planet names in
+	 * the list.
+	 *
+	 * @param space the space object containing the planet information.
+	 * @param planet the circle representing the planet in the list, this is the
+	 * thing that will be clicked on.
+	 * @param name the name of the planet that has been clicked on.
+	 * @param lbl the label containing the name of the planet.
+	 *
+	 * @return An event handler for a mouse click event.
+	 */
 	private void setClick (Space space, Circle planet, String name, Label lbl) {
 
 		planet.setOnMouseClicked(clickHandler(space, planet, name));
@@ -203,13 +215,25 @@ class Info {
 
 	}
 
+	/**
+	 * Retrieves the graphical object that represents the info panel on screen.
+	 *
+	 * @return A javafx GridPane object.
+	 */
 	public GridPane getInfo () {
 		return infoBox;
 	}
 
+	/**
+	 * Retrieves the width of the info panel on screen.
+	 *
+	 * @return A width in pixels.
+	 */
 	public double infoWidth () {
 		return infoWidth;
 	}
+
+	// ----- Constructor ----- //
 
 	public Info (Space space) {
 

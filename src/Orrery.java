@@ -11,12 +11,25 @@ import java.io.FileNotFoundException;
 
 // ----- Class ----- //
 
+/**
+ * The main class for the Orrery. Sets up the graphical environment and contains
+ * the javafx start method.
+ */
 public class Orrery extends Application {
+
+	// ----- Instance Variables ----- //
 
 	private BorderPane layout;
 	private Space space;
 	private Info info;
 
+	// ----- Instance Methods ----- //
+
+	/**
+	 * Sets up the window layout.
+	 *
+	 * @throws FileNotFoundException thrown if the data file is not found.
+	 */
 	private void buildLayout () throws FileNotFoundException {
 
 		layout = new BorderPane();
@@ -28,6 +41,14 @@ public class Orrery extends Application {
 
 	}
 
+	/**
+	 * The javafx start method, the entry point for the javafx application.
+	 * This is called when the application starts, and is passed the primary
+	 * stage onto which the scene is set.
+	 *
+	 * @param primaryStage the primary stage for the application.
+	 * @throws FileNotFoundException thrown if the data file is not found.
+	 */
 	@Override
 	public void start (Stage primaryStage) throws FileNotFoundException {
 
@@ -52,6 +73,8 @@ public class Orrery extends Application {
 		}
 
 	}
+
+	// ----- Main ----- //
 
 	public static void main(String[] args) {
 		launch(args);

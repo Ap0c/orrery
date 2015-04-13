@@ -188,13 +188,6 @@ class Planet {
 		motionProperties(centreX, centreY, planetData);
 		physicalProperties(planetData);
 
-		for (Map.Entry<String, String> item :
-			getProperties().entrySet()) {
-
-			System.out.println(item.getKey() + " : " + item.getValue());
-
-		}
-
 	}
 
 }
