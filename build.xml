@@ -9,7 +9,7 @@
 	</target>
 
 	<target name="run" depends="compile">
-		<java classpath="bin" fork="true" classname="Orrery" />
+		<java classpath="bin" fork="true" classname="orrery.Orrery" />
 	</target>
 
 	<target name="doc">
