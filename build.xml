@@ -1,7 +1,7 @@
 <project name="Orrery" basedir=".">
 
 	<target name="clean">
-		<fileset dir="bin" />
+		<fileset dir="bin/orrery" />
 	</target>
 
 	<target name="compile">
@@ -10,6 +10,10 @@
 
 	<target name="run" depends="compile">
 		<java classpath="bin" fork="true" classname="Orrery" />
+	</target>
+
+	<target name="doc">
+		<javadoc destdir="doc" sourcepath="src" packagenames="orrery" Package="true" />
 	</target>
 
 </project>

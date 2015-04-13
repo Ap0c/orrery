@@ -1,3 +1,5 @@
+package orrery;
+
 // ----- Imports ----- //
 
 import javafx.application.Application;
