@@ -64,7 +64,7 @@ class Space {
 	 */
 	private void addPlanets () throws FileNotFoundException {
 
-		Scanner planetsData = new Scanner(new File("src/planetdata.txt"));
+		Scanner planetsData = new Scanner(new File("planetdata.txt"));
 
 		while (planetsData.hasNext()) {
 
