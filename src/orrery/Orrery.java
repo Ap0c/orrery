@@ -59,7 +59,7 @@ public class Orrery extends Application {
 			buildLayout();
 
 			// Adds title and scene to stage.
-			primaryStage.setTitle("Solar System");
+			primaryStage.setTitle("Orrery");
 			primaryStage.setScene(new Scene(layout,
 				space.getWidth() + info.infoWidth(),
 				space.getHeight(),
