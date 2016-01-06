@@ -1,4 +1,4 @@
-# Graphics
+# Orrery
 
 An orrery implemented in Java, using JavaFX for graphics. For more information read the [Overview](http://ap0c.github.io/orrery), or the documentation found in the `docs` directory (start with `index.html`).
 
