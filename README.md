@@ -1,18 +1,14 @@
 # Graphics
 
-An orrery implemented in Java, using JavaFX for graphics.
+An orrery implemented in Java, using JavaFX for graphics. For more information read the [Overview](http://ap0c.github.io/orrery), or the documentation found in the `docs` directory (start with `index.html`).
 
 ## Build and Run
 
-Ant is used to build and run this code, simply type `ant run` in the root directory to run it. The run command depends on compile, so will build these if they are missing or any changes are made. Also available are:
+Apache Ant is used to build and run this code, simply type `ant run` in the root directory to run it.
 
-```
-ant compile
-ant clean
-ant doc
-```
+The run command depends on compile, so will build these if they are missing or any changes are made, or can alternatively be run via `ant compile`.
 
-to compile the code separately, delete the .class files, or generate documentation using javadoc respectively.
+Also available are `ant clean` to delete the build files, and `ant doc` to generate documentation using javadoc.
 
 ## File Structure
 
